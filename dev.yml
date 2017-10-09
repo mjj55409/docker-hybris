@@ -1,0 +1,37 @@
+version: '3'
+
+volumes:
+  commerce_db: {}
+  cpq_db: {}
+
+services:
+  commerce_db:
+    image: mysql:latest
+    volumes:
+      - commerce_db:/var/lib/mysql
+    ports:
+      - "9305:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=nimda
+      - MYSQL_USER=hybris
+      - MYSQL_PASSWORD=hybris
+      - MYSQL_DATABASE=commerce_db
+
+  cpq_db:
+    image: mysql:latest
+    volumes:
+      - cpq_db:/var/lib/mysql
+    ports:
+      - "9306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=nimda
+      - MYSQL_USER=hybris
+      - MYSQL_PASSWORD=hybris
+      - MYSQL_DATABASE=hybris_cpq
+
+  hybris:
+    build: ./compose/hybris
+    ports:
+      - "9001:9001"
+      - "9002:9002"
+    command: ./hybrisserver.sh
