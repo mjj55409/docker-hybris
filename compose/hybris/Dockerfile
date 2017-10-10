@@ -54,7 +54,7 @@ COPY ./media/cpq/${CPQ_DATALOADER} .
 RUN unzip ${CPQ_DATALOADER}; exit 0 && unzip ${CPQ_ENGINE}; exit 0 && rm *.zip
 
 #
-# The engine jars go int othe sapproductconfigruntimessc/lib/ directory
+# The engine jars go into the sapproductconfigruntimessc/lib/ directory
 #
 WORKDIR /srv/hybris/bin/ext-integration/sap/productconfig/sapproductconfigruntimessc/lib/
 COPY ./media/cpq/${CPQ_ENGINE} .
@@ -64,7 +64,7 @@ RUN unzip ${CPQ_ENGINE}; exit 0 && rm ${CPQ_ENGINE}
 # Specify the Hybris UI extensions to use
 # Extensions are installed in the hybris/bin/custom/ directory
 #
-ARG CPQ_HYBRIS_UI=FBSSOLHYUIEX6300P_3-70002595.zip
+ENV CPQ_HYBRIS_UI=FBSSOLHYUIEX6300P_3-70002595.zip
 
 WORKDIR /srv/hybris/bin/custom/
 COPY ./media/cpq/${CPQ_HYBRIS_UI} .
