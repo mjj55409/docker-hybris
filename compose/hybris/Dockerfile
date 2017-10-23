@@ -89,7 +89,7 @@ RUN export JAVA_HOME=$(readlink -f /usr/bin/java | sed "s:/bin/java::") \
    && . ./setantenv.sh \
    && ant clean all
 
- COPY ./media/local.properties /srv/hybris/config/.
+COPY ./media/local.properties /srv/hybris/config/.
 
 COPY entrypoint.sh /entrypoint.sh
 
