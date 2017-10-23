@@ -7,7 +7,7 @@ RUN yum -y install wget unzip lsof
 #
 # Install Java
 # To get the url, go to the Oracle site, agree to the license, and copy the url.
-ENV JAVA_URL=http://download.oracle.com/otn-pub/java/jdk/8u144-b01/090f390dda5b47b9b721c7dfaa008135/jdk-8u144-linux-x64.rpm
+ENV JAVA_URL=http://download.oracle.com/otn-pub/java/jdk/8u152-b16/aa0333dd3019491ca4f6ddbe78cdb6d0/jdk-8u152-linux-x64.rpm
 
 RUN wget -c -O /tmp/jdk.rpm --header "Cookie: oraclelicense=accept-securebackup-cookie" ${JAVA_URL} \
    && yum -y localinstall /tmp/jdk.rpm \
@@ -61,28 +61,35 @@ COPY ./media/cpq/${CPQ_ENGINE} .
 RUN unzip ${CPQ_ENGINE}; exit 0 && rm ${CPQ_ENGINE}
 
 #
-# Specify the Hybris UI extensions to use
-# Extensions are installed in the hybris/bin/custom/ directory
-#
-ENV CPQ_HYBRIS_UI=FBSSOLHYUIEX6300P_3-70002595.zip
-
-WORKDIR /srv/hybris/bin/custom/
-COPY ./media/cpq/${CPQ_HYBRIS_UI} .
-RUN unzip ${CPQ_HYBRIS_UI}; exit 0 && rm ${CPQ_HYBRIS_UI}
-
-#
 # Use specific configuration files
 #
-COPY ./media/local.properties /srv/hybris/config/.
-COPY ./media/localextensions.xml /srv/hybris/config/.
+COPY ./media/localextensions.productconfiguration.xml /srv/hybris/config/localextensions.xml
 
 #
-# Build the Hybris suite
+# Build the Hybris suite (with product configuration)
 #
 WORKDIR /srv/hybris/bin/platform
 RUN export JAVA_HOME=$(readlink -f /usr/bin/java | sed "s:/bin/java::") \
    && . ./setantenv.sh \
    && ant clean all
+
+#
+# Specify the Solution configuration Hybris UI extensions to use
+# Extensions are installed in the hybris/bin/custom/ directory
+#
+ENV CPQ_HYBRIS_UI=FBSSOLHYBUIEX6300P_4.zip
+
+WORKDIR /srv/hybris/bin/custom/
+COPY ./media/cpq/${CPQ_HYBRIS_UI} .
+RUN unzip ${CPQ_HYBRIS_UI}; exit 0 && rm ${CPQ_HYBRIS_UI}
+
+COPY ./media/localextensions.solutionconfiguration.xml /srv/hybris/config/localextensions.xml
+WORKDIR /srv/hybris/bin/platform
+RUN export JAVA_HOME=$(readlink -f /usr/bin/java | sed "s:/bin/java::") \
+   && . ./setantenv.sh \
+   && ant clean all
+
+ COPY ./media/local.properties /srv/hybris/config/.
 
 COPY entrypoint.sh /entrypoint.sh
 

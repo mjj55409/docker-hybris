@@ -3,12 +3,19 @@
     <path dir='${HYBRIS_BIN_DIR}/ext-integration/sap' autoload='false' />
     <path dir='${HYBRIS_BIN_DIR}' autoload='false' />
     <path dir='${HYBRIS_BIN_DIR}/custom' autoload='false' />
+    <!-- Product Config extensions -->
+    <extension name='sapproductconfigb2b' />
+    <extension name='sapproductconfigbackoffice' />
+    <extension name='sapproductconfigb2bservices' />
+    <extension name='sapproductconfigruntimessc' />
+    <extension name='ysapproductconfigaddon' />
     <!-- Solution Config extension -->
     <extension name="ysapcustdevsolutionconfigb2bfrontend"/>
     <extension name="sapcustdevordermgmtfacades"/>
     <extension name="sapcustdevordermgmgtbol"/>
     <extension name="sapcustdevsolutionconfigfacades"/>
     <extension name="sapcustdevsolutionconfigservices"/>
+
     <extension name='mcc' />
     <extension name='hmc' />
     <extension name='commercesearchbackoffice' />
@@ -52,13 +59,8 @@
     <extension name='cmssmartedit' />
     <extension name='previewwebservices' />
     <extension name='cmssmarteditwebservices' />
-    <extension name='sapproductconfigb2b' />
-    <extension name='sapproductconfigbackoffice' />
-    <extension name='sapproductconfigb2bservices' />
-    <extension name='sapproductconfigruntimessc' />
     <extension name='sapproductconfigrules' />
     <extension name='sapproductconfigrulesbackoffice' />
-    <extension name='ysapproductconfigaddon' />
     <extension name='yb2bacceleratorstorefront' />
   </extensions>
 </hybrisconfig>

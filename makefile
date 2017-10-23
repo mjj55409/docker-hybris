@@ -1,5 +1,7 @@
 build:
 	@docker-compose -f dev.yml build
+build-clean:
+	@docker-compose -f dev.yml build --no-cache
 run:
 	@docker-compose -f dev.yml up -d
 stop:

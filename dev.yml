@@ -1,5 +1,10 @@
 version: '3'
 
+networks:
+  default:
+    external:
+      name: hybris_network
+
 volumes:
   commerce_db: {}
   cpq_db: {}
@@ -7,6 +12,7 @@ volumes:
 services:
   commerce_db:
     image: mysql:latest
+    container_name: "commerce_db"
     volumes:
       - commerce_db:/var/lib/mysql
     ports:
@@ -19,6 +25,7 @@ services:
 
   cpq_db:
     image: mysql:latest
+    container_name: "cpq_db"
     volumes:
       - cpq_db:/var/lib/mysql
     ports:
@@ -31,7 +38,8 @@ services:
 
   hybris:
     build: ./compose/hybris
+    container_name: hybris
     ports:
-      - "9001:9001"
-      - "9002:9002"
+      - "9991:9001"
+      - "9992:9002"
     command: ./hybrisserver.sh
